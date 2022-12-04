@@ -57,6 +57,15 @@ class MarketsController < ApplicationController
     end
   end
 
+  def my_market
+    @category = params[:category].to_s
+    if @category
+      @items = Item.where(category: @category, enable: true)
+    else
+      @items = Item.where(enable: true)
+    end if
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_market
