@@ -8,8 +8,8 @@
 /.bundle
 
 # Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-*
+# /db/*.sqlite3
+# /db/*.sqlite3-*
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -23,11 +23,11 @@
 !/tmp/pids/.keep
 
 # Ignore uploaded files in development.
-/storage/*
-!/storage/.keep
-/tmp/storage/*
-!/tmp/storage/
-!/tmp/storage/.keep
+# /storage/*
+# !/storage/.keep
+# /tmp/storage/*
+# !/tmp/storage/
+# !/tmp/storage/.keep
 
 /public/assets
 
