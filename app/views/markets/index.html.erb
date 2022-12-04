@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Markets</h1>
+
+<div id="markets">
+  <% @markets.each do |market| %>
+    <%= render market %>
+    <p>
+      <%= link_to "Show this market", market %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New market", new_market_path %>

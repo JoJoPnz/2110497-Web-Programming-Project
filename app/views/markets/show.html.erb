@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @market %>
+
+<div>
+  <%= link_to "Edit this market", edit_market_path(@market) %> |
+  <%= link_to "Back to markets", markets_path %>
+
+  <%= button_to "Destroy this market", @market, method: :delete %>
+</div>

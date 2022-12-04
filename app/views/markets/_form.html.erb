@@ -1,0 +1,37 @@
+<%= form_with(model: market) do |form| %>
+  <% if market.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(market.errors.count, "error") %> prohibited this market from being saved:</h2>
+
+      <ul>
+        <% market.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div>
+    <%= form.label :item_id, style: "display: block" %>
+    <%= form.text_field :item_id %>
+  </div>
+
+  <div>
+    <%= form.label :price, style: "display: block" %>
+    <%= form.text_field :price %>
+  </div>
+
+  <div>
+    <%= form.label :stock, style: "display: block" %>
+    <%= form.number_field :stock %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
