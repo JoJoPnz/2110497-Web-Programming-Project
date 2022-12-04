@@ -17,6 +17,7 @@ class InventoriesTest < ApplicationSystemTestCase
     fill_in "Item", with: @inventory.item_id
     fill_in "Price", with: @inventory.price
     fill_in "Qty", with: @inventory.qty
+    fill_in "Timestamp", with: @inventory.timestamp
     fill_in "User", with: @inventory.user_id
     click_on "Create Inventory"
 
@@ -31,6 +32,7 @@ class InventoriesTest < ApplicationSystemTestCase
     fill_in "Item", with: @inventory.item_id
     fill_in "Price", with: @inventory.price
     fill_in "Qty", with: @inventory.qty
+    fill_in "Timestamp", with: @inventory.timestamp
     fill_in "User", with: @inventory.user_id
     click_on "Update Inventory"
 

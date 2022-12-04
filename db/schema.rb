@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_04_132012) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_04_133555) do
   create_table "inventories", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "item_id", null: false
     t.decimal "price"
     t.integer "qty"
+    t.datetime "timestamp"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_inventories_on_item_id"

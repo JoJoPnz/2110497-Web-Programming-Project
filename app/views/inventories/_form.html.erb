@@ -32,6 +32,11 @@
   </div>
 
   <div>
+    <%= form.label :timestamp, style: "display: block" %>
+    <%= form.datetime_field :timestamp %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

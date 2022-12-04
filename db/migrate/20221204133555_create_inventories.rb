@@ -5,6 +5,7 @@ class CreateInventories < ActiveRecord::Migration[7.0]
       t.references :item, null: false, foreign_key: true
       t.decimal :price
       t.integer :qty
+      t.datetime :timestamp
 
       t.timestamps
     end

@@ -5,9 +5,11 @@ one:
   item: one
   price: 9.99
   qty: 1
+  timestamp: 2022-12-04 20:35:55
 
 two:
   user: two
   item: two
   price: 9.99
   qty: 1
+  timestamp: 2022-12-04 20:35:55
