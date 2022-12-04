@@ -63,7 +63,7 @@ class MarketsController < ApplicationController
       @items = Item.where(category: @category, enable: true)
     else
       @items = Item.where(enable: true)
-    end if
+    end
   end
 
   private
