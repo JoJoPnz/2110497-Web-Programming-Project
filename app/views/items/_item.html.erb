@@ -14,4 +14,11 @@
     <%= item.enable %>
   </p>
 
+  <% if(item.picture.attached?) %>
+    <p>
+      <strong>Picture:</strong>
+      <%= image_tag item.picture.variant(:thumb75) %>
+    </p>
+  <% end %>
+
 </div>
