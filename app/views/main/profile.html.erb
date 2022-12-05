@@ -1,0 +1,19 @@
+<h1>Profile</h1>
+
+<% if session[:logged_in] %>
+    <p>email : <%= @user_login_id.email %></p>
+    <p>name: <%= @user_login_id.name %></p>
+    <% if @user_login_id.user_type == 0 %>
+        <p>you are admin <p>
+    <% elsif @user_login_id.user_type == 1 %>
+        <p>you are seller <p>
+    <% else %>
+        <p>you are buyer <p>
+    <%end%>
+
+    <%= link_to "Edit password", edit_password_path %>
+
+<% else %>
+    <p> You can edit your profile when you login </p>
+    <%= link_to "Go to login page", login_path %>
+<%end%>

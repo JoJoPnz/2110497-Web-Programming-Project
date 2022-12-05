@@ -1,0 +1,10 @@
+<h1>Login</h1>
+<%= form_with url: main_create_path, data: {turbo: false} do |f| %>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+  <br/>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <br/>
+  <%= f.submit :OK %>
+<% end %>
