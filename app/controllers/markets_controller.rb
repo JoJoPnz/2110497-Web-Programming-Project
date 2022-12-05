@@ -58,12 +58,7 @@ class MarketsController < ApplicationController
   end
 
   def my_market
-    @category = params[:category].to_s
-    if @category
-      @items = Item.where(category: @category, enable: true)
-    else
-      @items = Item.where(enable: true)
-    end
+    @items = Item.where(enable: true)
   end
 
   private

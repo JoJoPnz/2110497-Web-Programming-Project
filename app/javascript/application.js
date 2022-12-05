@@ -5,8 +5,8 @@ import "controllers"
 // my_market
 var my_market_table = $('#my_market_table').DataTable({
     "columnDefs": [
-        { "targets": [0,2,3,4,5], "searchable": false },
-        { "targets": [5], "orderable": false }
+        { "targets": [0,2,3,4,5,6], "searchable": false },
+        { "targets": [5,6], "orderable": false }
     ],
     "language": {
         "search": "Search By Category:"
