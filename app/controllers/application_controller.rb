@@ -11,17 +11,17 @@ class ApplicationController < ActionController::Base
             redirect_to main_login_path, notice: 'you must be login first'
         end
     end
-    
+
     def is_admin
         if(session[:logged_in])
             @user_login_id = User.where(id:  session[:login_user_id].to_i ).first
             if(@user_login_id.user_type == 0)
                 return true
             else
-                return false
+                redirect_to main_path, notice: 'you must be admin to access this page'
             end
         else 
-            return false
+            redirect_to main_path, notice: 'you must be login first'
         end
     end
 
@@ -31,10 +31,10 @@ class ApplicationController < ActionController::Base
             if(@user_login_id.user_type == 1)
                 return true
             else
-                return false
+                redirect_to main_path, notice: 'you must be seller to access this page'
             end
         else 
-            return false
+            redirect_to main_path, notice: 'you must be login first'
         end
     end
 
@@ -44,10 +44,10 @@ class ApplicationController < ActionController::Base
             if(@user_login_id.user_type == 2)
                 return true
             else
-                return false
+                redirect_to main_path, notice: 'you must be seller to access this page'
             end
         else 
-            return false
+            redirect_to main_path, notice: 'you must be login first'
         end
     end
 end
