@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   post '/edit_password', to: "main#edit_password"
   get '/edit_password', to: "main#edit_password"
   get '/main', to: "main#menu"
-  # Defines the root path route ("/")
-  # root "articles#index"
+  get '/my_inventory', to: "markets#my_inventory"
+  post '/delete_item', to: "markets#delete_item"
   get '/my_market', to: 'markets#my_market'
+  post "/inventory_edit_item", to: 'markets#inventory_edit_item'
+  get '/inventory_add_item', to: "markets#inventory_add_item"
+  post "/disable_item", to: "markets#disable_item"
 end

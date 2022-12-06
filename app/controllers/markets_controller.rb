@@ -1,6 +1,7 @@
 class MarketsController < ApplicationController
   before_action :set_market, only: %i[ show edit update destroy ]
-
+  
+  before_action :must_be_seller_or_admin, only: %i[ my_inventory]
   # GET /markets or /markets.json
   def index
     @markets = Market.all
@@ -59,6 +60,35 @@ class MarketsController < ApplicationController
 
   def my_market
     @items = Item.where(enable: true)
+  end
+
+  def my_inventory
+    if must_be_seller_or_admin
+      @user_login_id = User.where(id:  session[:login_user_id].to_i ).first
+      @market = Market.where(user_id: @user_login_id)
+    end
+  end
+
+  def inventory_edit_item
+    edit_amount = params[:qty].to_i
+    @item = Item.find(params[:item_id])
+    @item_in_market = Market.where(item_id:@item).first
+    if edit_amount >= 0 
+      @item_in_market.stock = edit_amount
+      @item_in_market.save
+      redirect_to my_inventory_path, notice: "Amount of item has been changed"
+    else 
+      redirect_to my_inventory_path, notice: "Amount of item cannot be less than zero"
+    end
+  end
+
+  def disable_item
+    @item = Item(id:params[:item_id])
+    @item.enable = false 
+  end
+
+  def inventory_add_item
+
   end
 
   private
