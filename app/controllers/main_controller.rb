@@ -55,6 +55,8 @@ class MainController < ApplicationController
             else
                 return false
             end
+        else 
+            return false
         end
     end
 
@@ -66,6 +68,8 @@ class MainController < ApplicationController
             else
                 return false
             end
+        else 
+            return false
         end
     end
 
@@ -77,6 +81,8 @@ class MainController < ApplicationController
             else
                 return false
             end
+        else 
+            return false
         end
     end
 end
