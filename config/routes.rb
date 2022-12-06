@@ -14,5 +14,9 @@ Rails.application.routes.draw do
   # /my_market page
   get '/my_market', to: 'markets#my_market'
   post '/purchase_item', to: 'markets#purchase_item'
-  
+
+  # /purchase_history page
+  get '/purchase_history', to: 'inventories#purchase_history'
+
+
 end

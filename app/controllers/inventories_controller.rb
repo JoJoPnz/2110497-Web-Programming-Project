@@ -1,5 +1,6 @@
 class InventoriesController < ApplicationController
   before_action :set_inventory, only: %i[ show edit update destroy ]
+  before_action :must_be_buyer_or_admin, only: %i[ purchase_history ]
 
   # GET /inventories or /inventories.json
   def index
@@ -56,6 +57,13 @@ class InventoriesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # ================
+  def purchase_history
+    @buyer_id = get_login_user.id
+    @inventories = Inventory.where(user_id: @buyer_id)
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
