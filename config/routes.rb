@@ -16,4 +16,12 @@ Rails.application.routes.draw do
   post "/inventory_edit_item", to: 'markets#inventory_edit_item'
   get '/inventory_add_item', to: "markets#inventory_add_item"
   post "/disable_item", to: "markets#disable_item"
+  post '/purchase_item', to: 'markets#purchase_item'
+
+  # /purchase_history page
+  get '/purchase_history', to: 'inventories#purchase_history'
+
+  # /sale_history page
+  get '/sale_history', to: 'inventories#sale_history'
+
 end

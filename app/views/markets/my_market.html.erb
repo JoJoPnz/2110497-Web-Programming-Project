@@ -24,7 +24,8 @@
                         <td>This item has no picture</td>
                     <% end %>
                     <td>
-                        <%= form_with url: "/", method: :get do |form| %>
+                        <%= form_with url: "/purchase_item", method: :post do |form| %>
+                            <%= form.hidden_field :item_id, value: item.id %>
                             <%= form.number_field :qty, placeholder: "quantity" %>
                             <%= form.submit "BUY" %>
                         <% end %>
@@ -33,3 +34,17 @@
             <% end %>
         </tbody>
     </table>
+
+    <script>
+        $(document).ready(function () {
+            $('#my_market_table').DataTable({
+                "columnDefs": [
+                    { "targets": [0,2,3,4,5,6], "searchable": false },
+                    { "targets": [5,6], "orderable": false }
+                ],
+                "language": {
+                    "search": "Search By Category:"
+                }
+            })
+        });
+    </script>
