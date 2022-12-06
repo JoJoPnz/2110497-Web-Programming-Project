@@ -46,43 +46,4 @@ class MainController < ApplicationController
     
     def menu
     end
-
-    def is_admin
-        if(session[:logged_in])
-            @user_login_id = User.where(id:  session[:login_user_id].to_i ).first
-            if(@user_login_id.user_type == 0)
-                return true
-            else
-                return false
-            end
-        else 
-            return false
-        end
-    end
-
-    def is_seller
-        if(session[:logged_in])
-            @user_login_id = User.where(id:  session[:login_user_id].to_i ).first
-            if(@user_login_id.user_type == 1)
-                return true
-            else
-                return false
-            end
-        else 
-            return false
-        end
-    end
-
-    def is_buyer
-        if(session[:logged_in])
-            @user_login_id = User.where(id:  session[:login_user_id].to_i ).first
-            if(@user_login_id.user_type == 2)
-                return true
-            else
-                return false
-            end
-        else 
-            return false
-        end
-    end
 end
