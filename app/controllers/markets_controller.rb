@@ -1,5 +1,6 @@
 class MarketsController < ApplicationController
   before_action :set_market, only: %i[ show edit update destroy ]
+  before_action :must_be_buyer_or_admin, only: %i[ my_market purchase_item ]
 
   # GET /markets or /markets.json
   def index
@@ -57,8 +58,29 @@ class MarketsController < ApplicationController
     end
   end
 
+  # ==============================
   def my_market
     @items = Item.where(enable: true)
+  end
+
+  def purchase_item
+    @qty = params[:qty].to_i
+    @item_id = params[:item_id].to_i
+    @buyer_id = get_login_user.id
+    @market = Market.find(@item_id)
+    @price = @market.price
+    @stock = @market.stock
+    if @qty <= 0
+      redirect_to my_market_path, notice: 'quantity must be greater than 0'
+    elsif @stock < @qty
+      redirect_to my_market_path, notice: 'item stock is less than the quantity you want to buy'
+    else
+      @item = Item.find(@item_id)
+      @remaining_stock = @stock - @qty
+      @market.update(stock: @remaining_stock)
+      Inventory.create(user_id: @buyer_id, item_id: @item_id, price: @price, qty: @qty, timestamp: DateTime.now)
+      redirect_to my_market_path, notice: 'purchase ' + @qty.to_s + ' ' + @item.name.to_s + ' successfully'
+    end
   end
 
   private
