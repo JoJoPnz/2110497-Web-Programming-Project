@@ -18,5 +18,7 @@ Rails.application.routes.draw do
   # /purchase_history page
   get '/purchase_history', to: 'inventories#purchase_history'
 
+  # /sale_history page
+  get '/sale_history', to: 'inventories#sale_history'
 
 end

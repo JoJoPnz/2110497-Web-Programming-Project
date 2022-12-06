@@ -1,6 +1,7 @@
 class InventoriesController < ApplicationController
   before_action :set_inventory, only: %i[ show edit update destroy ]
   before_action :must_be_buyer_or_admin, only: %i[ purchase_history ]
+  before_action :must_be_seller_or_admin, only: %i[ sale_history ]
 
   # GET /inventories or /inventories.json
   def index
@@ -64,6 +65,15 @@ class InventoriesController < ApplicationController
     @inventories = Inventory.where(user_id: @buyer_id)
   end
 
+  def sale_history
+    @seller_id = get_login_user.id
+    @inventories = Array.new
+    Inventory.all.each do |inventory|
+      if Market.find(inventory.item_id).user_id == @seller_id
+        @inventories.push(inventory)
+      end
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
