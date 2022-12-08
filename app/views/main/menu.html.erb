@@ -1,6 +1,9 @@
 <% if session[:logged_in] %>
     <p>Go to market </p>
     <%= link_to "market" , my_market_path, :class => "btn btn-primary" %>
+
+    <p>Go to inventory </p>
+    <%= link_to "inventory" , my_inventory_path, :class => "btn btn-primary" %>
 <% else %>
     <p> You can access this page after you login</p>
     <%= link_to "Go to login page", login_path, :class => "btn btn-primary" %>

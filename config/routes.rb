@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get '/my_market', to: 'markets#my_market'
   post "/inventory_edit_item", to: 'markets#inventory_edit_item'
   get '/inventory_add_item', to: "markets#inventory_add_item"
+  post '/added_item_from_inventory', to: "markets#added_item_from_inventory"
   post "/disable_item", to: "markets#disable_item"
   post '/purchase_item', to: 'markets#purchase_item'
 

@@ -1,7 +1,7 @@
 class MarketsController < ApplicationController
   before_action :set_market, only: %i[ show edit update destroy ]
   before_action :must_be_buyer_or_admin, only: %i[ my_market purchase_item ]
-  before_action :must_be_seller_or_admin, only: %i[ my_inventory]
+  before_action :must_be_seller_or_admin, only: %i[ my_inventory inventory_add_item added_item_from_inventory]
 
   # GET /markets or /markets.json
   def index
@@ -85,12 +85,10 @@ class MarketsController < ApplicationController
   end
 
   def my_inventory
-    if must_be_seller_or_admin
-      @user_login_id = User.where(id:  session[:login_user_id].to_i ).first
-      @market = Market.where(user_id: @user_login_id)
-    end
+    @user_login_id = User.where(id:  session[:login_user_id].to_i ).first
+    @market = Market.where(user_id: @user_login_id)
   end
-
+  
   def inventory_edit_item
     edit_amount = params[:qty].to_i
     @item = Item.find(params[:item_id])
@@ -105,12 +103,35 @@ class MarketsController < ApplicationController
   end
 
   def disable_item
-    @item = Item(id:params[:item_id])
+    @item = Item.where(id:params[:item_id]).first
     @item.enable = false 
+    @item.save
   end
 
   def inventory_add_item
 
+  end
+
+  def added_item_from_inventory
+    @price = params[:price].to_f
+    @stock = params[:stock].to_i
+    if(@stock < 0)
+      redirect_to '/inventory_add_item', alert: "stock is not allowed to be less than zero" 
+    elsif(@price <= 0)
+      redirect_to '/inventory_add_item', alert: "price is not allowed to be zero or less than zero"  
+    else 
+      if(!@price.blank? && !@stock.blank? && !@name.blank? && !@category.blank?)
+        @name = params[:name]
+        @category = params[:category]
+        @enable = params[:enable]
+        @picture = params[:picture]
+        temp = Item.create(name:@name , category:@category, enable:@enable, picture:@picture)
+        Market.create(user_id:get_login_user.id , item_id:temp.id , price:@price, stock:@stock)
+        redirect_to '/my_inventory', notice: "The item has been added"
+      else
+        redirect_to '/inventory_add_item', alert: "name, category, price, stock must be filled"  
+      end
+    end
   end
 
   private
