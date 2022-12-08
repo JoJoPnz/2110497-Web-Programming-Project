@@ -72,15 +72,15 @@ class MarketsController < ApplicationController
     @price = @market.price
     @stock = @market.stock
     if @qty <= 0
-      redirect_to my_market_path, notice: 'quantity must be greater than 0'
+      redirect_to my_market_path, error: 'quantity must be greater than 0'
     elsif @stock < @qty
-      redirect_to my_market_path, notice: 'item stock is less than the quantity you want to buy'
+      redirect_to my_market_path, error: 'item stock is less than the quantity you want to buy'
     else
       @item = Item.find(@item_id)
       @remaining_stock = @stock - @qty
       @market.update(stock: @remaining_stock)
       Inventory.create(user_id: @buyer_id, item_id: @item_id, price: @price, qty: @qty, timestamp: DateTime.now)
-      redirect_to my_market_path, notice: 'purchase ' + @qty.to_s + ' ' + @item.name.to_s + ' successfully'
+      redirect_to my_market_path, success: 'purchase ' + @qty.to_s + ' ' + @item.name.to_s + ' successfully'
     end
   end
 
@@ -96,9 +96,9 @@ class MarketsController < ApplicationController
     if edit_amount >= 0 
       @item_in_market.stock = edit_amount
       @item_in_market.save
-      redirect_to my_inventory_path, notice: "Amount of item has been changed"
+      redirect_to my_inventory_path, success: "Amount of item has been changed"
     else 
-      redirect_to my_inventory_path, notice: "Amount of item cannot be less than zero"
+      redirect_to my_inventory_path, error: "Amount of item cannot be less than zero"
     end
   end
 
@@ -116,9 +116,9 @@ class MarketsController < ApplicationController
     @price = params[:price].to_f
     @stock = params[:stock].to_i
     if(@stock < 0)
-      redirect_to '/inventory_add_item', alert: "stock is not allowed to be less than zero" 
+      redirect_to '/inventory_add_item', error: "stock is not allowed to be less than zero" 
     elsif(@price <= 0)
-      redirect_to '/inventory_add_item', alert: "price is not allowed to be zero or less than zero"  
+      redirect_to '/inventory_add_item', error: "price is not allowed to be zero or less than zero"  
     else 
       if(!@price.blank? && !@stock.blank? && !@name.blank? && !@category.blank?)
         @name = params[:name]
@@ -127,9 +127,9 @@ class MarketsController < ApplicationController
         @picture = params[:picture]
         temp = Item.create(name:@name , category:@category, enable:@enable, picture:@picture)
         Market.create(user_id:get_login_user.id , item_id:temp.id , price:@price, stock:@stock)
-        redirect_to '/my_inventory', notice: "The item has been added"
+        redirect_to '/my_inventory', success: "The item has been added"
       else
-        redirect_to '/inventory_add_item', alert: "name, category, price, stock must be filled"  
+        redirect_to '/inventory_add_item', error: "name, category, price, stock must be filled"  
       end
     end
   end
