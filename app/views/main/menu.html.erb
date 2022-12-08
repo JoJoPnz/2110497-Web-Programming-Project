@@ -1,9 +1,23 @@
 <% if session[:logged_in] %>
-    <p>Go to market </p>
-    <%= link_to "market" , my_market_path, :class => "btn btn-primary" %>
+    <% @tmp = User.where(id: session[:logged_in]).first.user_type %>
+    <% if(@tmp == 0 || @tmp == 2 ) %> 
+        <p>Go to market </p>
+        <%= link_to "market" , my_market_path, :class => "btn btn-primary" %>
 
-    <p>Go to inventory </p>
-    <%= link_to "inventory" , my_inventory_path, :class => "btn btn-primary" %>
+        <p>Go to purchase history </p>
+        <%= link_to "purchase history" , purchase_history_path, :class => "btn btn-primary" %>
+    <%end%>
+
+    <% if(@tmp == 0 || @tmp == 1 ) %> 
+        <p>Go to inventory </p>
+        <%= link_to "inventory" , my_inventory_path, :class => "btn btn-primary" %>
+
+        <p>Go to sale history </p>
+        <%= link_to "sale history" , sale_history_path, :class => "btn btn-primary" %>
+
+        <p>Go to top seller </p>
+        <%= link_to "top seller" , '/', :class => "btn btn-primary" %>
+    <%end%>
 <% else %>
     <p> You can access this page after you login</p>
     <%= link_to "Go to login page", login_path, :class => "btn btn-primary" %>

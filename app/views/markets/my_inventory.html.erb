@@ -17,7 +17,7 @@
         </thead>
         <tbody>
             <% @market.each do |item| %>
-                
+
                 <% if(Item.where(id: item.item_id).first.enable != true) %>
                     <% next %>
                 <%end%>
@@ -56,3 +56,7 @@
             })
         });
 </script>
+
+<div class="text-center">
+<%= button_to "Back to Main page", main_path, method: :get , :class => "btn btn-secondary"%>
+</div>
