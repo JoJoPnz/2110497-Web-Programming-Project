@@ -1,5 +1,8 @@
 class MainController < ApplicationController
     def login
+        if is_login?
+            redirect_to main_path, notice: 'You have already logged in (Please logout to change account)'
+        end
     end
 
     def create
