@@ -1,23 +1,32 @@
+<style>
+.ms-1 {
+  margin-left: ($spacer * .25) !important;
+}
+</style>
+
 <% if session[:logged_in] %>
     <% @tmp = User.where(id: session[:logged_in]).first.user_type %>
-    <% if(@tmp == 0 || @tmp == 2 ) %> 
-        <p>Go to market </p>
-        <%= link_to "market" , my_market_path, :class => "btn btn-primary" %>
 
-        <p>Go to purchase history </p>
-        <%= link_to "purchase history" , purchase_history_path, :class => "btn btn-primary" %>
-    <%end%>
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <h1 class="navbar-brand text-white ms-1">กลุ่มโมบิลสั่งข้าวแกง</h1>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <% if(@tmp == 0 || @tmp == 2 ) %> 
+                <a class="nav-item nav-link active text-white" href=my_market>Market</a>
+                <a class="nav-item nav-link active text-white" href=purchase_history>Purchase history</a>
+            <%end%>
 
-    <% if(@tmp == 0 || @tmp == 1 ) %> 
-        <p>Go to inventory </p>
-        <%= link_to "inventory" , my_inventory_path, :class => "btn btn-primary" %>
+            <% if(@tmp == 0 || @tmp == 1 ) %> 
+                <a class="nav-item nav-link active text-white" href=my_inventory>Inventory</a>
+                <a class="nav-item nav-link active text-white" href=sale_history>Sale history</a>
+                <a class="nav-item nav-link active text-white" href="#">Top seller</a>
+            <%end%>
 
-        <p>Go to sale history </p>
-        <%= link_to "sale history" , sale_history_path, :class => "btn btn-primary" %>
+            <a class="nav-item nav-link active text-white " href=logout>Logout</a>
+            </div>
+        </div>
+    </nav>
 
-        <p>Go to top seller </p>
-        <%= link_to "top seller" , '/', :class => "btn btn-primary" %>
-    <%end%>
 <% else %>
     <p> You can access this page after you login</p>
     <%= link_to "Go to login page", login_path, :class => "btn btn-primary" %>

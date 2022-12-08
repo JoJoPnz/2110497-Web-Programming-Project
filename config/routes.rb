@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   post '/added_item_from_inventory', to: "markets#added_item_from_inventory"
   post "/disable_item", to: "markets#disable_item"
   post '/purchase_item', to: 'markets#purchase_item'
-
+  get '/logout', to: 'main#destroy'
   # /purchase_history page
   get '/purchase_history', to: 'inventories#purchase_history'
 
