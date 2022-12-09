@@ -5,7 +5,7 @@
 </style>
 
 <% if session[:logged_in] %>
-    <% @tmp = User.where(id: session[:logged_in]).first.user_type %>
+    <% @tmp = User.where(id: session[:login_user_id]).first.user_type %>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
     <h1 class="navbar-brand text-white ms-1">กลุ่มโมบิลสั่งข้าวแกง</h1>
@@ -22,7 +22,7 @@
                 <a class="nav-item nav-link active text-white" href="#">Top seller</a>
             <%end%>
 
-            <a class="nav-item nav-link active text-white " href=logout>Logout</a>
+            <a class="nav-item nav-link active text-white " href='/logout'>Logout</a>
             </div>
         </div>
     </nav>
