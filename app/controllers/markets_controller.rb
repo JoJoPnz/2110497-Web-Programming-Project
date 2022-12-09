@@ -68,9 +68,10 @@ class MarketsController < ApplicationController
     @qty = params[:qty].to_i
     @item_id = params[:item_id].to_i
     @buyer_id = get_login_user.id
-    @market = Market.find(@item_id)
+    @market = Market.where(item_id: @item_id).first
     @price = @market.price
     @stock = @market.stock
+    
     if @qty <= 0
       redirect_to my_market_path, error: 'quantity must be greater than 0'
     elsif @stock < @qty
@@ -106,6 +107,7 @@ class MarketsController < ApplicationController
     @item = Item.where(id:params[:item_id]).first
     @item.enable = false 
     @item.save
+    redirect_to '/my_inventory', notice: "The item has been deleted"
   end
 
   def inventory_add_item
@@ -115,22 +117,20 @@ class MarketsController < ApplicationController
   def added_item_from_inventory
     @price = params[:price].to_f
     @stock = params[:stock].to_i
-    if(@stock < 0)
+    @name = params[:name]
+    @category = params[:category]
+    if(@price.blank? || @stock.blank? || @name.blank? || @category.blank? )
+      redirect_to '/inventory_add_item', alert: "name, category, price, stock must be filled"
+    elsif(@stock < 0)
       redirect_to '/inventory_add_item', error: "stock is not allowed to be less than zero" 
     elsif(@price <= 0)
       redirect_to '/inventory_add_item', error: "price is not allowed to be zero or less than zero"  
-    else 
-      if(!@price.blank? && !@stock.blank? && !@name.blank? && !@category.blank?)
-        @name = params[:name]
-        @category = params[:category]
+    else
         @enable = params[:enable]
         @picture = params[:picture]
         temp = Item.create(name:@name , category:@category, enable:@enable, picture:@picture)
         Market.create(user_id:get_login_user.id , item_id:temp.id , price:@price, stock:@stock)
         redirect_to '/my_inventory', success: "The item has been added"
-      else
-        redirect_to '/inventory_add_item', error: "name, category, price, stock must be filled"  
-      end
     end
   end
 

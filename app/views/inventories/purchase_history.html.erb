@@ -14,7 +14,7 @@
         <% @inventories.each do |inventory| %>
             <% @item_id = inventory.item_id %>
             <% @item = Item.find(@item_id) %>
-            <% @market = Market.find(@item_id) %>
+            <% @market = Market.where(item_id: @item_id).first %>
             <tr>
                 <td><%= @item.name %></td>
                 <td><%= @item.category %></td>
