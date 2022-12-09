@@ -20,10 +20,28 @@
 
   <body>
     <% flash.each do |type,msg| %>
-      <p class="alert alert-info">
+      <% if notice %>
+        <div class="alert alert-info" role="alert">
+          <%= msg %>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-warning" role="alert">
+          <%= msg %>
+        </div>
+      <% end %>
+      <% if success %>
+        <div class="alert alert-success" role="alert">
+          <%= msg %>
+        </div>
+      <% end %>
+      <% if error %>
+      <div class="alert alert-danger" role="alert">
         <%= msg %>
-      </p>
+      </div>
     <% end %>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

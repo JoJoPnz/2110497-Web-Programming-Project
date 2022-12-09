@@ -5,27 +5,47 @@
 </style>
 
 <% if session[:logged_in] %>
-    <% @tmp = User.where(id: session[:login_user_id]).first.user_type %>
+    <% @tmp = User.where(id: session[:login_user_id].to_i).first.user_type %>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-    <h1 class="navbar-brand text-white ms-1">กลุ่มโมบิลสั่งข้าวแกง</h1>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <% if(@tmp == 0 || @tmp == 2 ) %> 
-                <a class="nav-item nav-link active text-white" href=my_market>Market</a>
-                <a class="nav-item nav-link active text-white" href=purchase_history>Purchase history</a>
-            <%end%>
+    <nav class="navbar navbar-expand-lg" style="background-color: #E0FFFF;">
+    <div class="container-fluid">
+      <a class="navbar-brand">กลุ่มโมบิลสั่งข้าวแกง</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Profile
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/profile">View Profile</a></li>
+              <li><a class="dropdown-item" href="/edit_password">Change Password</a></li>
+            </ul>
+          </li>
 
-            <% if(@tmp == 0 || @tmp == 1 ) %> 
-                <a class="nav-item nav-link active text-white" href=my_inventory>Inventory</a>
-                <a class="nav-item nav-link active text-white" href=sale_history>Sale history</a>
-                <a class="nav-item nav-link active text-white" href="#">Top seller</a>
-            <%end%>
+          <% if(@tmp == 0 || @tmp == 2 ) %> 
+            <li class="nav-item"><a class="nav-link" href="/my_market">Market</a></li>
+            <li class="nav-item"><a class="nav-link" href="/purchase_history">Purchase History</a></li>
+          <%end%>
 
-            <a class="nav-item nav-link active text-white " href='/logout'>Logout</a>
-            </div>
-        </div>
-    </nav>
+          <% if(@tmp == 0 || @tmp == 1 ) %> 
+            <li class="nav-item"><a class="nav-link" href="/my_inventory">Inventory</a></li>
+            <li class="nav-item"><a class="nav-link" href="/sale_history">Sale History</a></li>
+            <li class="nav-item"><a class="nav-link" href="/">Top Seller</a></li>
+          <%end%>
+
+        </ul>
+
+        <form class="d-flex">
+            <%= link_to "Logout", '/logout' , :class => "btn btn-info btn-outline-dark" %>
+        </form>
+
+      </div>
+    </div>
+  </nav>
+
 
 <% else %>
     <p> You can access this page after you login</p>

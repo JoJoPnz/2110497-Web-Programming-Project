@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+    add_flash_types :info, :error, :success
+    
     private
     def is_login?
         return session[:logged_in] == true

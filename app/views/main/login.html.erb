@@ -1,12 +1,27 @@
-<h1>Login</h1>
-<%= form_with url: main_create_path, data: {turbo: false} do |f| %>
-  <div class="input-group flex-nowrap">
-      <%= f.label :email , { class:"input-group-text"}%>
-      <%= f.text_field :email, { class: "form-control" } %>
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+            <h1 class="mb-5">Login</h1>
+
+            <%= form_with url: main_create_path, data: {turbo: false} do |f| %>
+              <div class="input-group input-group-lg flex-nowrap mb-3">
+                  <%= f.label :email , { class:"input-group-text"}%>
+                  <%= f.text_field :email, { class: "form-control" } %>
+              </div>
+              <div class="input-group input-group-lg flex-nowrap mb-3">
+                  <%= f.label :password , { class: "input-group-text"}%>
+                  <%= f.password_field :password, { class: "form-control"} %>
+              </div>
+              <div class="d-grid gap-2 col-auto">
+                <%= f.submit :OK , :class => "btn btn-primary"%>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="input-group flex-nowrap">
-      <%= f.label :password , { class: "input-group-text"}%>
-      <%= f.password_field :password, { class: "form-control"} %>
-      <%= f.submit :OK , :class => "btn btn-primary"%>
-  </div>
-<% end %>

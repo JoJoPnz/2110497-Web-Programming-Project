@@ -1,5 +1,8 @@
 class MainController < ApplicationController
     def login
+        if is_login?
+            redirect_to main_path, alert: 'You have already logged in (Please logout to change account)'
+        end
     end
 
     def create
@@ -11,7 +14,7 @@ class MainController < ApplicationController
           session[:logged_in] = true
           session[:login_user_id] = u.id
         else 
-          redirect_to login_path, notice: 'wrong username or password'
+          redirect_to login_path, error: 'wrong username or password'
         end
     end
     
@@ -37,11 +40,11 @@ class MainController < ApplicationController
         if(!@new_password.blank? && @new_password == @confirm_password) 
             @user_login_id.password = @new_password
             @user_login_id.save
-            redirect_to profile_path,notice: 'password has been changed'
+            redirect_to profile_path, success: 'password has been changed'
         elsif(@new_password.blank? && !@new_password.nil?)
-            redirect_to edit_password_path,notice: 'password cannot be empty'
+            redirect_to edit_password_path, error: 'password cannot be empty'
         elsif(@new_password != @confirm_password)
-            redirect_to edit_password_path,notice: 'password and confirm password are not match'
+            redirect_to edit_password_path, error: 'password and confirm password are not match'
         end
     end
     
