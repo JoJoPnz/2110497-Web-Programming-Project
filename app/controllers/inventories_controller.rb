@@ -69,7 +69,7 @@ class InventoriesController < ApplicationController
     @seller_id = get_login_user.id
     @inventories = Array.new
     Inventory.all.each do |inventory|
-      if Market.find(inventory.item_id).user_id == @seller_id
+      if Market.where(item_id: inventory.item_id).first.user_id == @seller_id
         @inventories.push(inventory)
       end
     end
