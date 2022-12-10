@@ -1,0 +1,101 @@
+<h1 class="text-center mt-4 mb-4">Top Seller</h1>
+<%= form_with url: sort_top_seller_path, data: {turbo: false}, method: :post do |f| %>
+    <div class="d-flex flex-row justify-content-center mb-4 input-group input-group-lg flex-nowrap">
+        <div class="align-self-center input-group-text">
+            Pick a Start Date & End Date (mm/dd/yyyy)
+        </div>
+        <input class="flex-grow-1" type="text" name="daterange" />
+    </div>
+    <div class="mx-5 mb-3">
+        <div class="form-check">
+            <% if @filter == "filter_amount" %>
+                <input class="form-check-input" type="radio" name="filter" id="filter_amount" value="filter_amount" checked>
+            <% else %>
+                <input class="form-check-input" type="radio" name="filter" id="filter_amount" value="filter_amount">
+            <% end %>
+            <label class="form-check-label" for="filter_amount">
+                Sort By Amount
+            </label>
+        </div>
+        <div class="form-check">
+            <% if @filter == "filter_sale" %>
+                <input class="form-check-input" type="radio" name="filter" id="filter_sale" value="filter_sale" checked>
+            <% else %>
+                <input class="form-check-input" type="radio" name="filter" id="filter_sale" value="filter_sale">
+            <% end %>
+            <label class="form-check-label" for="filter_sale">
+                Sort By Sale
+            </label>
+        </div>
+    </div>
+    <div class="d-grid gap-2 col-auto">
+        <%= f.submit :Search , :class => "btn btn-primary"%>
+    </div>
+<% end %>
+
+<div class="text-center">
+    <%= button_to "Back to Main page", main_path, method: :get , :class => "btn btn-secondary"%>
+</div>
+
+<% if @filter == "filter_amount" && !@start_date.nil? && !@end_date.nil? %>
+    <h1 class="text-center mt-5 mb-4">Result</h1>
+    <table id="filter_table" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Seller ID</th>
+                <th>Seller Name</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @top_amount_seller.each do |e| %>
+                <% @user = User.find(e[0]) %>
+                <% @amount= e[1] %>
+                <tr>
+                    <td><%= @user.id %></td>
+                    <td><%= @user.name %></td>
+                    <td><%= @amount %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% elsif @filter == "filter_sale" && !@start_date.nil? && !@end_date.nil? %>
+    <h1 class="text-center mt-5 mb-4">Result</h1>
+    <table id="filter_table" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Seller ID</th>
+                <th>Seller Name</th>
+                <th>Sale</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @top_sale_seller.each do |e| %>
+                <% @user = User.find(e[0]) %>
+                <% @sale = e[1] %>
+                <tr>
+                    <td><%= @user.id %></td>
+                    <td><%= @user.name %></td>
+                    <td><%= @sale %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% end %>
+
+
+<script type="text/javascript">
+    $(function() {
+        $('input[name="daterange"]').daterangepicker();
+    });
+
+    $(document).ready(function () {
+        $('#filter_table').DataTable({
+            "searching": false,
+            "columnDefs": [
+                { "targets": [0,1,2], "orderable": false }
+            ],
+        })
+    });
+
+</script>

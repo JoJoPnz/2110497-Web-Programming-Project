@@ -25,4 +25,8 @@ Rails.application.routes.draw do
   # /sale_history page
   get '/sale_history', to: 'inventories#sale_history'
 
+  # /top_seller page
+  get '/top_seller', to: 'inventories#top_seller'
+  post '/sort_top_seller', to: 'inventories#sort_top_seller'
+
 end

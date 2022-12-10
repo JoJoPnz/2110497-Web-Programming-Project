@@ -75,6 +75,55 @@ class InventoriesController < ApplicationController
     end
   end
 
+  def top_seller
+    @filter = params[:filter]
+    @start_date = params[:start_date]
+    @end_date = params[:end_date]
+    if !@start_date.nil?
+      @tmp_start_date = @start_date
+      @start_date = DateTime.strptime(@start_date, "%m/%d/%Y")
+    end
+    if !@end_date.nil?
+      @tmp_end_date = @end_date
+      @end_date = DateTime.strptime(@end_date, "%m/%d/%Y")
+    end
+
+    if !@start_date.nil? && !@end_date.nil?
+      @tmp_range_date = @tmp_start_date + ' - ' + @tmp_end_date
+      @sellers = User.where(user_type: 1)
+      @top_amount_seller = Hash.new
+      @top_sale_seller = Hash.new
+      @sellers.each do |seller|
+        @seller_id = seller.id
+        @top_amount_seller[@seller_id] = 0
+        @top_sale_seller[@seller_id] = 0
+      end
+      @inventories = Inventory.all()
+      @inventories.each do |inventory|
+        if inventory.timestamp.between?(@start_date, @end_date)
+          @seller_id = Market.where(item_id: inventory.item_id).first.user_id
+          @top_amount_seller[@seller_id] += inventory.qty
+          @top_sale_seller[@seller_id] += inventory.price
+        end
+      end
+      @top_amount_seller = @top_amount_seller.sort_by {|k, v| v}.reverse
+      @top_sale_seller = @top_sale_seller.sort_by {|k, v| v}.reverse
+    end
+  end
+
+  def sort_top_seller
+    @start_date = params[:daterange][0..9]
+    @end_date = params[:daterange][13..]
+    @filter = params[:filter]
+    if @start_date.nil? || @end_date.nil?
+      redirect_to top_seller_path, alert: "Please Select Date"
+    elsif @filter.nil?
+      redirect_to top_seller_path, alert: "Please Select Sort method (radio button)"
+    else
+      redirect_to top_seller_path + '/?filter=' + @filter + '&start_date=' + @start_date + '&end_date=' + @end_date
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_inventory
