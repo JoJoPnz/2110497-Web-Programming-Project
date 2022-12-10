@@ -7,42 +7,36 @@
 
 <br><h1 class="text-center">Profile</h1><br>
 
-<% if session[:logged_in] %>
-    <% if @user_login_id.user_type == 0 %>
-        <% @tmp = "you are admin" %>
-    <% elsif @user_login_id.user_type == 1 %>
-        <% @tmp = "you are seller" %>
-    <% else %>
-        <% @tmp = "you are buyer" %>
-    <%end%>
-
-    <table class="table table-striped table-dark">
-        <tr>
-            <td>   <p>Email :</p>  </td>
-            <td>   <p><%= @user_login_id.email %></p>  </td>
-        </tr>
-
-        <tr> 
-            <td>   <p>Name :</p>  </td>
-            <td>   <p><%= @user_login_id.name %></p>  </td>
-        </tr>
-
-        <tr> 
-            <td>   <p>User type :</p>  </td>
-            <td>   <p><%= @tmp %></p>  </td>
-        </tr>
-
-        <tr> 
-            <td>   <p>Password :</p>  </td>
-            <td>   <p><%= link_to "Edit password", edit_password_path, :class => "btn btn-primary" %></p>  </td>
-        </tr>
-    </table>
-
+<% if @user_login_id.user_type == 0 %>
+    <% @tmp = "you are admin" %>
+<% elsif @user_login_id.user_type == 1 %>
+    <% @tmp = "you are seller" %>
 <% else %>
-    <p> You can edit your profile when you login </p>
-    <%= link_to "Go to login page", login_path %>
+    <% @tmp = "you are buyer" %>
 <%end%>
 
+<table class="table table-striped table-dark">
+    <tr>
+        <td>   <p>Email :</p>  </td>
+        <td>   <p><%= @user_login_id.email %></p>  </td>
+    </tr>
+
+    <tr> 
+        <td>   <p>Name :</p>  </td>
+        <td>   <p><%= @user_login_id.name %></p>  </td>
+    </tr>
+
+    <tr> 
+        <td>   <p>User type :</p>  </td>
+        <td>   <p><%= @tmp %></p>  </td>
+    </tr>
+
+    <tr> 
+        <td>   <p>Password :</p>  </td>
+        <td>   <p><%= link_to "Edit password", edit_password_path, :class => "btn btn-primary" %></p>  </td>
+    </tr>
+</table>
+
 <div class="text-center">
-<%= button_to "Back to Main page", main_path, method: :get , :class => "btn btn-secondary"%>
+    <%= button_to "Back to Main page", main_path, method: :get , :class => "btn btn-secondary"%>
 </div>

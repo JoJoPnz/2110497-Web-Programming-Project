@@ -1,4 +1,5 @@
 class MainController < ApplicationController
+    before_action :must_be_logged_in, only: %i[ destroy profile edit_password menu ]
     def login
         if is_login?
             redirect_to main_path, alert: 'You have already logged in (Please logout to change account)'
