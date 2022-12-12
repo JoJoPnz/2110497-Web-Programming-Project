@@ -1,11 +1,11 @@
 require "test_helper"
 
+# my_market page
 class MyMarketTest < ActionDispatch::IntegrationTest
   setup do
     sign_in_as users(:buyer1)
   end
 
-  # my_market page
   test "should show information" do
     get my_market_url
     assert_response :success
@@ -44,10 +44,6 @@ class MyMarketTest < ActionDispatch::IntegrationTest
     assert_equal 'purchase ' + @qty.to_s + ' ' + @item.name.to_s + ' successfully', flash[:success]
   end
 
-  # my_inventory page
-
-
-
   # Authentication test
   test "should not be able to access my_market page if not login" do
     get logout_url
@@ -65,48 +61,4 @@ class MyMarketTest < ActionDispatch::IntegrationTest
     assert_equal 'you must be buyer or admin to access this page', flash[:notice]
   end
 
-
-
-
-
-  # test "should get index" do
-  #   get markets_url
-  #   assert_response :success
-  # end
-
-  # test "should get new" do
-  #   get new_market_url
-  #   assert_response :success
-  # end
-
-  # test "should create market" do
-  #   assert_difference("Market.count") do
-  #     post markets_url, params: { market: { item_id: @market.item_id, price: @market.price, stock: @market.stock, user_id: @market.user_id } }
-  #   end
-
-  #   assert_redirected_to market_url(Market.last)
-  # end
-
-  # test "should show market" do
-  #   get market_url(@market)
-  #   assert_response :success
-  # end
-
-  # test "should get edit" do
-  #   get edit_market_url(@market)
-  #   assert_response :success
-  # end
-
-  # test "should update market" do
-  #   patch market_url(@market), params: { market: { item_id: @market.item_id, price: @market.price, stock: @market.stock, user_id: @market.user_id } }
-  #   assert_redirected_to market_url(@market)
-  # end
-
-  # test "should destroy market" do
-  #   assert_difference("Market.count", -1) do
-  #     delete market_url(@market)
-  #   end
-
-  #   assert_redirected_to markets_url
-  # end
 end
