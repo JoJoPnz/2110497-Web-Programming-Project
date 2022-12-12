@@ -2,11 +2,7 @@ require "application_system_test_case"
 
 class MyMarketTest < ApplicationSystemTestCase
   setup do
-    @buyer = users(:buyer1)
-    visit login_url
-    fill_in "email", with: @buyer.email
-    fill_in "password", with: "password"
-    click_on "OK"
+    sign_in_as users(:buyer1)
   end
 
   # test "should show information" do
