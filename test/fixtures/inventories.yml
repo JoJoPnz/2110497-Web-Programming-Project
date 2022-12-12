@@ -1,15 +1,22 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user: one
-  item: one
-  price: 9.99
-  qty: 1
+  user: buyer1
+  item: electronic1_enable
+  price: 200.00
+  qty: 5
   timestamp: 2022-12-04 20:35:55
 
 two:
-  user: two
-  item: two
-  price: 9.99
-  qty: 1
+  user: buyer1
+  item: electronic2_enable
+  price: 500.00
+  qty: 3
+  timestamp: 2022-12-04 20:35:55
+
+three:
+  user: buyer1
+  item: electronic3_enable
+  price: 800.00
+  qty: 5
   timestamp: 2022-12-04 20:35:55

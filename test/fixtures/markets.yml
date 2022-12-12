@@ -1,19 +1,37 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user: one
-  item: one
-  price: 9.99
-  stock: 1
-
-two:
-  user: two
-  item: two
-  price: 9.99
-  stock: 1
-
-three:
   user: seller1
   item: electronic1_enable
   price: 200.00
   stock: 20
+
+two:
+  user: seller1
+  item: electronic2_enable
+  price: 500.00
+  stock: 30
+
+three:
+  user: seller1
+  item: electronic3_enable
+  price: 800.00
+  stock: 25
+
+four:
+  user: seller2
+  item: food1_enable
+  price: 30.00
+  stock: 50
+
+five:
+  user: seller2
+  item: food2_enable
+  price: 80.00
+  stock: 50
+
+six:
+  user: seller2
+  item: food3_enable
+  price: 150.00
+  stock: 50

@@ -1,15 +1,5 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  category: MyString
-  enable: false
-
-two:
-  name: MyString
-  category: MyString
-  enable: false
-
 electronic1_enable:
   name: electronic1
   category: electronic
@@ -19,3 +9,28 @@ electronic1_not_enable:
   name: electronic1
   category: electronic
   enable: false
+
+electronic2_enable:
+  name: electronic2
+  category: electronic
+  enable: true
+
+electronic3_enable:
+  name: electronic3
+  category: electronic
+  enable: true
+
+food1_enable:
+  name: pork
+  category: food
+  enable: true
+
+food2_enable:
+  name: beef
+  category: food
+  enable: true
+
+food3_enable:
+  name: chicken meat
+  category: food
+  enable: true
