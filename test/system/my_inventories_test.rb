@@ -1,9 +1,9 @@
 require "application_system_test_case"
 
 class MyInventoriesTest < ApplicationSystemTestCase
-  setup do
-    sign_in_as users(:seller1)
-  end
+  # setup do
+  #   sign_in_as users(:seller1)
+  # end
 
   # test "should show information" do
   #   visit my_inventory_url
