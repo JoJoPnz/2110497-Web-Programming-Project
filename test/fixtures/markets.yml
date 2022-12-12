@@ -11,3 +11,9 @@ two:
   item: two
   price: 9.99
   stock: 1
+
+three:
+  user: seller1
+  item: electronic1_enable
+  price: 200.00
+  stock: 20

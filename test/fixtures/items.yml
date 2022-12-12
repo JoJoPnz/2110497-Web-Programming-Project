@@ -9,3 +9,13 @@ two:
   name: MyString
   category: MyString
   enable: false
+
+electronic1_enable:
+  name: electronic1
+  category: electronic
+  enable: true
+
+electronic1_not_enable:
+  name: electronic1
+  category: electronic
+  enable: false
