@@ -3,13 +3,13 @@
 one:
   email: MyString
   name: MyString
-  password_digest: MyString
+  password_digest: <%= BCrypt::Password.create("password") %>
   user_type: 1
 
 two:
   email: MyString
   name: MyString
-  password_digest: MyString
+  password_digest: <%= BCrypt::Password.create("password") %>
   user_type: 1
 
 admin1:
