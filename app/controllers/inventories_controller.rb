@@ -1,7 +1,7 @@
 class InventoriesController < ApplicationController
   before_action :set_inventory, only: %i[ show edit update destroy ]
   before_action :must_be_buyer_or_admin, only: %i[ purchase_history ]
-  before_action :must_be_seller_or_admin, only: %i[ sale_history ]
+  before_action :must_be_seller_or_admin, only: %i[ sale_history top_seller sort_top_seller ]
 
   # GET /inventories or /inventories.json
   def index
@@ -112,15 +112,16 @@ class InventoriesController < ApplicationController
   end
 
   def sort_top_seller
-    @start_date = params[:daterange][0..9]
-    @end_date = params[:daterange][13..]
+    @daterange = params[:daterange]
     @filter = params[:filter]
-    if @start_date.nil? || @end_date.nil?
+    if @daterange.nil?
       redirect_to top_seller_path, alert: "Please Select Date"
     elsif @filter.nil?
       redirect_to top_seller_path, alert: "Please Select Sort method (radio button)"
     else
-      redirect_to top_seller_path + '/?filter=' + @filter + '&start_date=' + @start_date + '&end_date=' + @end_date
+      @start_date = @daterange[0..9]
+      @end_date = @daterange[13..]
+      redirect_to top_seller_path + '/?filter=' + @filter + '&start_date=' + @start_date + '&end_date=' + @end_date, success: "Search Top Seller Succesfully"
     end
   end
 
