@@ -14,6 +14,9 @@ class MyMarketTest < ActionDispatch::IntegrationTest
   test "should not buy item if quantity less than or equal zero" do
     @item = items(:electronic1_enable)
     assert_no_difference 'Inventory.count' do
+      post purchase_item_url(qty: 0, item_id: @item.id)
+    end
+    assert_no_difference 'Inventory.count' do
       post purchase_item_url(qty: -1, item_id: @item.id)
     end
     assert_redirected_to my_market_url

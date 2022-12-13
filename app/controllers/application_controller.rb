@@ -21,8 +21,7 @@ class ApplicationController < ActionController::Base
 
     def must_be_admin
         if(must_be_logged_in)
-            @user = get_login_user
-            if(@user.user_type == 0)
+            if(get_login_user.user_type == 0)
                 return true
             else
                 redirect_to main_path, notice: 'you must be admin to access this page'
@@ -32,8 +31,7 @@ class ApplicationController < ActionController::Base
 
     def must_be_seller_or_admin
         if(must_be_logged_in)
-            @user = get_login_user
-            if(@user.user_type == 1 || @user.user_type == 0)
+            if(get_login_user.user_type == 1 || get_login_user.user_type == 0)
                 return true
             else
                 redirect_to main_path, notice: 'you must be seller or admin to access this page'
@@ -43,8 +41,7 @@ class ApplicationController < ActionController::Base
 
     def must_be_buyer_or_admin
         if(must_be_logged_in)
-            @user = get_login_user
-            if(@user.user_type == 2 || @user.user_type == 0)
+            if(get_login_user.user_type == 2 || get_login_user.user_type == 0)
                 return true
             else
                 redirect_to main_path, notice: 'you must be buyer or admin to access this page'
