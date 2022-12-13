@@ -79,9 +79,13 @@ class MarketsController < ApplicationController
     else
       @item = Item.find(@item_id)
       @remaining_stock = @stock - @qty
-      @market.update(stock: @remaining_stock)
-      Inventory.create(user_id: @buyer_id, item_id: @item_id, price: @price, qty: @qty, timestamp: DateTime.now)
-      redirect_to my_market_path, success: 'purchase ' + @qty.to_s + ' ' + @item.name.to_s + ' successfully'
+      begin 
+        @market.update(stock: @remaining_stock , lock_version:params[:lock_version])
+        Inventory.create(user_id: @buyer_id, item_id: @item_id, price: @price, qty: @qty, timestamp: DateTime.now)
+        redirect_to my_market_path, success: 'purchase ' + @qty.to_s + ' ' + @item.name.to_s + ' successfully'
+      rescue ActiveRecord::StaleObjectError
+        redirect_to my_market_path, error: "you must refresh this page(lock version fail)"
+      end
     end
   end
 
@@ -95,9 +99,12 @@ class MarketsController < ApplicationController
     @item = Item.find(params[:item_id])
     @item_in_market = Market.where(item_id:@item).first
     if edit_amount >= 0 
-      @item_in_market.stock = edit_amount
-      @item_in_market.save
-      redirect_to my_inventory_path, success: "Amount of item has been changed"
+      begin
+        @item_in_market.update(lock_version:params[:lock_version] , stock:edit_amount)
+        redirect_to my_inventory_path, success: "Amount of item has been changed"
+      rescue ActiveRecord::StaleObjectError
+        redirect_to my_inventory_path, error: "you must refresh this page(lock version fail)"
+      end
     else 
       redirect_to my_inventory_path, error: "Amount of item cannot be less than zero"
     end
@@ -105,9 +112,12 @@ class MarketsController < ApplicationController
 
   def disable_item
     @item = Item.where(id:params[:item_id]).first
-    @item.enable = false 
-    @item.save
-    redirect_to '/my_inventory', notice: "The item has been deleted"
+    begin 
+      @item.update(lock_version:params[:lock_version] , enable:false)
+      redirect_to '/my_inventory', notice: "The item has been deleted"
+    rescue ActiveRecord::StaleObjectError
+      redirect_to my_inventory_path, error: "you must refresh this page(lock version fail)"
+    end 
   end
 
   def inventory_add_item

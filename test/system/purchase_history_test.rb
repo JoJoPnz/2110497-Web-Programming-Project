@@ -9,9 +9,9 @@ class PurchaseHistoryTest < ApplicationSystemTestCase
     click_on "OK"
   end
 
-#   test "should show information" do
-#     visit purchase_history_url
-#     assert_selector "#purchase_history_table"
-#   end
+  test "should show information" do
+    visit purchase_history_url
+    assert_selector "#purchase_history_table"
+  end
 
 end
