@@ -35,11 +35,12 @@
                     <td>
                         <%= form_with url: "/inventory_edit_item", method: :post do |form| %>
                             <%= form.hidden_field :item_id, value: item.item_id %>
+                            <%= form.hidden_field :lock_version, value: item.lock_version %>
                             <%= form.number_field :qty, placeholder: "quantity" %>
                             <%= form.submit "Submit" %>
                         <% end %>
                     </td>
-                    <td><%= button_to "DELETE", '/disable_item', params:{ item_id: item.item_id} , :class => "btn btn-danger " %></td>
+                    <td><%= button_to "DELETE", '/disable_item', params:{ item_id: item.item_id , lock_version:Item.where(id: item.item_id).first.lock_version} , :class => "btn btn-danger " %></td>
                 </tr>
             <% end %>
         </tbody>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_05_025624) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_13_074530) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -57,6 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_025624) do
     t.boolean "enable"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lock_version"
   end
 
   create_table "markets", force: :cascade do |t|
@@ -66,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_025624) do
     t.integer "stock"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lock_version"
     t.index ["item_id"], name: "index_markets_on_item_id"
     t.index ["user_id"], name: "index_markets_on_user_id"
   end
@@ -77,6 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_025624) do
     t.integer "user_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lock_version"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

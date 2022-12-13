@@ -13,11 +13,12 @@ class MyMarketTest < ActionDispatch::IntegrationTest
 
   test "should not buy item if quantity less than or equal zero" do
     @item = items(:electronic1_enable)
+    @market = Market.where(item_id: @item.id).first
     assert_no_difference 'Inventory.count' do
-      post purchase_item_url(qty: 0, item_id: @item.id)
+      post purchase_item_url(qty: 0, item_id: @item.id , lock_version:@market.lock_version)
     end
     assert_no_difference 'Inventory.count' do
-      post purchase_item_url(qty: -1, item_id: @item.id)
+      post purchase_item_url(qty: -1, item_id: @item.id , lock_version:@market.lock_version)
     end
     assert_redirected_to my_market_url
     assert_equal "quantity must be greater than 0", flash[:error]
@@ -29,7 +30,7 @@ class MyMarketTest < ActionDispatch::IntegrationTest
     @stock = @market.stock
     @qty = @stock + 1
     assert_no_difference 'Inventory.count' do
-      post purchase_item_url(qty: @qty, item_id: @item.id)
+      post purchase_item_url(qty: @qty, item_id: @item.id , lock_version:@market.lock_version)
     end
     assert_redirected_to my_market_url
     assert_equal "item stock is less than the quantity you want to buy", flash[:error]
@@ -41,7 +42,7 @@ class MyMarketTest < ActionDispatch::IntegrationTest
     @stock = @market.stock
     @qty = @stock
     assert_difference 'Inventory.count', 1 do
-      post purchase_item_url(qty: @qty, item_id: @item.id)
+      post purchase_item_url(qty: @qty, item_id: @item.id , lock_version:@market.lock_version)
     end
     assert_redirected_to my_market_url
     assert_equal 'purchase ' + @qty.to_s + ' ' + @item.name.to_s + ' successfully', flash[:success]

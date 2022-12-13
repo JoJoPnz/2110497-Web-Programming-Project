@@ -26,6 +26,7 @@
                     <td>
                         <%= form_with url: "/purchase_item", method: :post do |form| %>
                             <%= form.hidden_field :item_id, value: item.id %>
+                            <%= form.hidden_field :lock_version, value: Market.where(item_id: item.id).first.lock_version %>
                             <%= form.number_field :qty, placeholder: "quantity" %>
                             <%= form.submit "BUY" %>
                         <% end %>

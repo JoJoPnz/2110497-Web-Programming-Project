@@ -39,9 +39,12 @@ class MainController < ApplicationController
         @new_password = params[:new_password]
         @confirm_password = params[:confirm_password]
         if(!@new_password.blank? && @new_password == @confirm_password) 
-            @user_login_id.password = @new_password
-            @user_login_id.save
-            redirect_to profile_path, success: 'password has been changed'
+            begin
+                @user_login_id.update(lock_version:params[:lock_version] , password:@new_password)
+                redirect_to profile_path, success: 'password has been changed'
+            rescue ActiveRecord::StaleObjectError
+                redirect_to edit_password_path, error: "you must refresh this page(lock version fail)"
+            end
         elsif(@new_password.blank? && !@new_password.nil?)
             redirect_to edit_password_path, error: 'password cannot be empty'
         elsif(@new_password != @confirm_password)
