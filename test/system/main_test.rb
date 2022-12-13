@@ -24,17 +24,22 @@ class MainTest < ApplicationSystemTestCase
 #     sign_in_as users(:seller1)
 #     @profile_menus = ["View Profile", "Change Password"]
 #     @profile_menus.each do |menu|
-#       visit main_url
-#       assert_selector "a", text: "Profile"
-#       click_on "Profile"
-#       assert_selector "a.dropdown-item", text: menu
-#       click_on menu
+#         visit main_url
+#         assert_selector "a", text: "Profile"
+#         click_on "Profile"
+#         assert_selector "a.dropdown-item", text: menu
+#         click_on menu
+#     end
+#     visit main_url
+#     @hide_menus = ["Market", "Purchase History"]
+#     @hide_menus.each do |menu|
+#         assert_no_selector "a", text: menu
 #     end
 #     @menus = ["Inventory", "Sale History", "Top Seller", "Logout"]
 #     @menus.each do |menu|
-#       visit main_url
-#       assert_selector "a", text: menu
-#       click_on menu
+#         visit main_url
+#         assert_selector "a", text: menu
+#         click_on menu
 #     end
 #   end
 
@@ -42,17 +47,22 @@ class MainTest < ApplicationSystemTestCase
 #     sign_in_as users(:buyer1)
 #     @profile_menus = ["View Profile", "Change Password"]
 #     @profile_menus.each do |menu|
-#       visit main_url
-#       assert_selector "a", text: "Profile"
-#       click_on "Profile"
-#       assert_selector "a.dropdown-item", text: menu
-#       click_on menu
+#         visit main_url
+#         assert_selector "a", text: "Profile"
+#         click_on "Profile"
+#         assert_selector "a.dropdown-item", text: menu
+#         click_on menu
+#     end
+#     visit main_url
+#     @hide_menus = ["Inventory", "Sale History", "Top Seller"]
+#     @hide_menus.each do |menu|
+#         assert_no_selector "a", text: menu
 #     end
 #     @menus = ["Market", "Purchase History", "Logout"]
 #     @menus.each do |menu|
-#       visit main_url
-#       assert_selector "a", text: menu
-#       click_on menu
+#         visit main_url
+#         assert_selector "a", text: menu
+#         click_on menu
 #     end
 #   end
 
