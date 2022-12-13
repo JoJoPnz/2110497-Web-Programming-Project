@@ -20,7 +20,7 @@ class ProfileTest < ActionDispatch::IntegrationTest
   #   post edit_password_url(new_password:'123456', confirm_password:'wrong password')
   #   assert_redirected_to edit_password_url
   #   assert_equal 'password and confirm password are not match', flash[:error]
-  end
+  # end
 
   test "should not be able to access my_market page if not login" do
     get logout_url
